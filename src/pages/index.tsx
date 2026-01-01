@@ -20,12 +20,11 @@ export default function Home() {
 
   const fetchAndDownloadWoof = async () => {
     try {
-      const response = await fetch('/api/woof');
-      const data = await response.json();
-      const woofContent = data.content;
+      const response = await fetch('/woof_rot13.txt');
+      const woofContent = await response.text();
 
       // First ROT13 decode, then base64 decode
-      const base64Content = rot13Decode(woofContent);
+      const base64Content = rot13Decode(woofContent.trim());
       const byteCharacters = atob(base64Content);
       const byteNumbers = new Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
